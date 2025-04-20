@@ -18,6 +18,10 @@ import {
   CircleUser,
   Bell,
   LayoutDashboard,
+  User,
+  Key,
+  CreditCard,
+  Music,
 } from "lucide-react"
 
 import {
@@ -54,36 +58,49 @@ const navigationLinks = [
     href: "/dashboard",
     label: "Dashboard",
     icon: LayoutDashboard,
+    exact: true,
   },
   {
     href: "/dashboard/tts",
     label: "Text to Speech",
     icon: Headphones,
+    exact: false,
   },
   {
     href: "/dashboard/asr",
     label: "Speech Recognition",
     icon: MicIcon,
+    exact: false,
   },
   {
     href: "/dashboard/streaming",
     label: "Streaming Services",
     icon: VolumeIcon,
+    exact: false,
   },
   {
     href: "/dashboard/voice-cloning",
     label: "Voice Cloning",
     icon: MicOffIcon,
+    exact: false,
   },
   {
     href: "/dashboard/translation",
     label: "Live Translation",
     icon: Languages,
+    exact: false,
   },
   {
     href: "/dashboard/ai-calling",
     label: "AI Calling",
     icon: PhoneCall,
+    exact: false,
+  },
+  {
+    href: "/dashboard/voice-studios",
+    label: "Voice Studios",
+    icon: Music,
+    exact: false,
   },
 ]
 
@@ -112,7 +129,9 @@ function MobileSheetMenu({
         <nav className="grid gap-2 p-4 text-base font-medium flex-1 overflow-auto">
           {navigationLinks.map((link) => {
             const Icon = link.icon
-            const isActive = pathname === link.href || pathname.startsWith(link.href + '/')
+            const isActive = link.exact 
+              ? pathname === link.href 
+              : pathname === link.href || pathname.startsWith(link.href + '/')
             return (
               <Link
                 key={link.href}
@@ -170,7 +189,9 @@ function DesktopSidebar() {
           <nav className="grid items-start px-2 text-sm font-medium gap-1.5">
             {navigationLinks.map((link) => {
               const Icon = link.icon
-              const isActive = pathname === link.href || pathname.startsWith(link.href + '/')
+              const isActive = link.exact 
+                ? pathname === link.href 
+                : pathname === link.href || pathname.startsWith(link.href + '/')
               return (
                 <Link
                   key={link.href}
@@ -241,13 +262,30 @@ function HeaderBar({ onMenuClick }: { onMenuClick: () => void }) {
           <DropdownMenuContent align="end" className="w-56">
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <Settings className="mr-2 h-4 w-4" />
-              <span>Settings</span>
+            <DropdownMenuItem asChild>
+              <Link href="/dashboard/settings/account">
+                <User className="mr-2 h-4 w-4" />
+                <span>Account</span>
+              </Link>
             </DropdownMenuItem>
-            <DropdownMenuItem>
-              <LifeBuoy className="mr-2 h-4 w-4" />
-              <span>Support</span>
+            <DropdownMenuItem asChild>
+              <Link href="/dashboard/settings/api-keys">
+                <Key className="mr-2 h-4 w-4" />
+                <span>API Keys</span>
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link href="/dashboard/settings/billing">
+                <CreditCard className="mr-2 h-4 w-4" />
+                <span>Billing</span>
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem asChild>
+              <Link href="/support">
+                <LifeBuoy className="mr-2 h-4 w-4" />
+                <span>Support</span>
+              </Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
