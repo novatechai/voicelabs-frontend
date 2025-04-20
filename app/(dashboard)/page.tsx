@@ -1,10 +1,50 @@
 import * as React from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { VolumeIcon, Headphones, MicIcon, Languages, PhoneCall, UsersRound } from "lucide-react"
+import Link from "next/link"
+
+const featureCards = [
+  {
+    title: "Text to Speech",
+    icon: Headphones,
+    description: "Convert text to natural-sounding speech with customizable voices.",
+    href: "/tts",
+  },
+  {
+    title: "Speech Recognition",
+    icon: MicIcon,
+    description: "Accurately transcribe speech to text in real-time.",
+    href: "/asr",
+  },
+  {
+    title: "Streaming Services",
+    icon: VolumeIcon,
+    description: "Real-time streaming for TTS and ASR applications.",
+    href: "/streaming",
+  },
+  {
+    title: "Voice Cloning",
+    icon: UsersRound,
+    description: "Create custom voice models with just a few minutes of audio.",
+    href: "/voice-cloning",
+  },
+  {
+    title: "Live Translation",
+    icon: Languages,
+    description: "Real-time speech-to-speech translation across languages.",
+    href: "/translation",
+  },
+  {
+    title: "AI Calling",
+    icon: PhoneCall,
+    description: "Create AI agents for automated phone calls & customer service.",
+    href: "/ai-calling",
+  },
+]
 
 export default function DashboardPage() {
   return (
-    <div className="space-y-8">
+    <div className="space-y-[var(--section-spacing)]">
       <div>
         <h1 className="section-title">Welcome to VoiceLabs</h1>
         <p className="section-description">
@@ -13,60 +53,26 @@ export default function DashboardPage() {
       </div>
 
       <div className="card-grid md:grid-cols-2 lg:grid-cols-3">
-        <Card className="shadow-sm hover:shadow-md transition-shadow">
-          <CardHeader className="flex flex-row items-center justify-between pb-3 space-y-0">
-            <CardTitle className="text-base font-medium">Text to Speech</CardTitle>
-            <Headphones className="h-5 w-5 text-primary" />
-          </CardHeader>
-          <CardContent>
-            <p className="text-sm text-muted-foreground">Convert text to natural-sounding speech with customizable voices</p>
-          </CardContent>
-        </Card>
-        <Card className="shadow-sm hover:shadow-md transition-shadow">
-          <CardHeader className="flex flex-row items-center justify-between pb-3 space-y-0">
-            <CardTitle className="text-base font-medium">Speech Recognition</CardTitle>
-            <MicIcon className="h-5 w-5 text-primary" />
-          </CardHeader>
-          <CardContent>
-            <p className="text-sm text-muted-foreground">Accurately transcribe speech to text in real-time</p>
-          </CardContent>
-        </Card>
-        <Card className="shadow-sm hover:shadow-md transition-shadow">
-          <CardHeader className="flex flex-row items-center justify-between pb-3 space-y-0">
-            <CardTitle className="text-base font-medium">Streaming Services</CardTitle>
-            <VolumeIcon className="h-5 w-5 text-primary" />
-          </CardHeader>
-          <CardContent>
-            <p className="text-sm text-muted-foreground">Real-time streaming for TTS and ASR applications</p>
-          </CardContent>
-        </Card>
-        <Card className="shadow-sm hover:shadow-md transition-shadow">
-          <CardHeader className="flex flex-row items-center justify-between pb-3 space-y-0">
-            <CardTitle className="text-base font-medium">Voice Cloning</CardTitle>
-            <UsersRound className="h-5 w-5 text-primary" />
-          </CardHeader>
-          <CardContent>
-            <p className="text-sm text-muted-foreground">Create custom voice models with just a few minutes of audio</p>
-          </CardContent>
-        </Card>
-        <Card className="shadow-sm hover:shadow-md transition-shadow">
-          <CardHeader className="flex flex-row items-center justify-between pb-3 space-y-0">
-            <CardTitle className="text-base font-medium">Live Translation</CardTitle>
-            <Languages className="h-5 w-5 text-primary" />
-          </CardHeader>
-          <CardContent>
-            <p className="text-sm text-muted-foreground">Real-time speech-to-speech translation across multiple languages</p>
-          </CardContent>
-        </Card>
-        <Card className="shadow-sm hover:shadow-md transition-shadow">
-          <CardHeader className="flex flex-row items-center justify-between pb-3 space-y-0">
-            <CardTitle className="text-base font-medium">AI Calling</CardTitle>
-            <PhoneCall className="h-5 w-5 text-primary" />
-          </CardHeader>
-          <CardContent>
-            <p className="text-sm text-muted-foreground">Create AI agents for automated phone calls and customer service</p>
-          </CardContent>
-        </Card>
+        {featureCards.map((feature) => {
+          const Icon = feature.icon
+          return (
+            <Link key={feature.title} href={feature.href} className="block">
+              <Card className="card h-full hover:border-primary/50">
+                <CardHeader className="flex flex-row items-center justify-between pb-3 space-y-0">
+                  <CardTitle className="text-base font-medium">
+                    {feature.title}
+                  </CardTitle>
+                  <Icon className="h-5 w-5 text-primary" />
+                </CardHeader>
+                <CardContent className="pt-0">
+                  <p className="text-sm text-muted-foreground">
+                    {feature.description}
+                  </p>
+                </CardContent>
+              </Card>
+            </Link>
+          )
+        })}
       </div>
 
       <div className="mt-8">
