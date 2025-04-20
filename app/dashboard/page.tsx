@@ -92,7 +92,7 @@ export default function DashboardPage() {
             const Icon = feature.icon
             return (
               <Link key={feature.title} href={feature.href} className="block group">
-                <Card className="card h-full transition-all duration-200 overflow-hidden border-border/40 hover:border-primary/40">
+                <Card className="card h-full transition-all duration-200 overflow-hidden border-border/40 hover:border-primary/40 relative">
                   <div className={`absolute inset-0 bg-gradient-to-br ${feature.color} opacity-0 group-hover:opacity-100 transition-opacity`}></div>
                   <CardHeader className="flex flex-row items-center justify-between pb-3 space-y-0 relative">
                     <CardTitle className="text-base font-medium">
